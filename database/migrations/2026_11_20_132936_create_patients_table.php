@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->foreignId('patient_id')
-                 -> primary()
-                 -> constrained()
-                 -> cascadeOnDelete();
-            $table->int('family_code') -> unique();
+                ->primary()
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->int('family_code')->unique();
             $table->string('emergency_contact');
             $table->string('emergency_phone');
             $table->string('emergency_relation');
             $table->date('admission_date');
+            $table->timestamps();
         });
     }
 
