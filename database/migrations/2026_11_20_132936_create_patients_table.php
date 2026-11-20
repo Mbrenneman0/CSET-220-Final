@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('emergency_phone');
             $table->string('emergency_relation');
             $table->date('admission_date');
+            $table->timestamps();
         });
     }
 

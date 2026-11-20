@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->foreignId('patient_id')->constrained('patients', 'patient_id')->onCascadeDelete();
             $table->string('comments', 2048);
-            $table->foreignID('morning_med')->constrained('Medications', 'medication_id');
-            $table->foreignID('afternoon_med')->constrained('Medications', 'medication_id');
-            $table->foreignID('night_med')->constrained('Medications', 'medication_id');
+            $table->foreignId('morning_med')->constrained('Medications', 'medication_id');
+            $table->foreignId('afternoon_med')->constrained('Medications', 'medication_id');
+            $table->foreignId('night_med')->constrained('Medications', 'medication_id');
 
             $table->timestamps('date');
 
-            $table->primary(['patient_id','date']);
+            $table->primary(['patient_id', 'date']);
         });
     }
 

@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('group__assignments', function (Blueprint $table) {
-            $table->foreignID('group_id')->constrained('care_groups','group_id')->cascadeOnDelete();
-            $table->foreignID('patient_id')->constrained('patients', 'patient_id')->cascadeOnDelete();
+            $table->foreignId('group_id')->constrained('care__groups', 'group_id')->cascadeOnDelete();
+            $table->foreignId('patient_id')->constrained('patients', 'patient_id')->cascadeOnDelete();
             $table->timestamps();
-            $table->primary(['group_id','patient_id']);
+            $table->primary(['group_id', 'patient_id']);
         });
     }
 
