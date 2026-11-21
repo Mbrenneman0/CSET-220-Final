@@ -16,12 +16,12 @@ return new class extends Migration
             $table->foreignId('patient_id')->constrained('patients','patient_id')->cascadeOnDelete();
             $table->date('date');
             $table->timestamps();
-            $table->boolean('morning_med');
-            $table->boolean('afternoon_med');
-            $table->boolean('night_med');
-            $table->boolean('morning_meal');
-            $table->boolean('afternoon_meal');
-            $table->boolean('night_meal');
+            $table->boolean('morning_med')->default(false);
+            $table->boolean('afternoon_med')->default(false);
+            $table->boolean('night_med')->default(false);
+            $table->boolean('morning_meal')->default(false);
+            $table->boolean('afternoon_meal')->default(false);
+            $table->boolean('night_meal')->default(false);
 
             $table->primary(['caregiver_id','patient_id','date']);
         });
