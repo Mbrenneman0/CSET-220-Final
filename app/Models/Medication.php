@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -18,7 +20,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Medication whereUpdatedAt($value)
  * @mixin \Eloquent
  */
+#[Fillable(['medication_name'])]
 class Medication extends Model
 {
-    //
+    use HasFactory;
+    public $table = 'medications';
 }
