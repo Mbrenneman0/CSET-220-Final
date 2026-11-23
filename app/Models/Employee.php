@@ -24,8 +24,10 @@ class Employee extends Model
 {
     use HasFactory;
 
-    protected $table = 'Employee';
+    protected $table = 'employees';
     protected $primaryKey = 'employee_id';
+
+    public $incrementing = false;
 
     protected $fillable = [
         'salary'
@@ -49,15 +51,12 @@ class Employee extends Model
             'roster_id'
         );
     }
-    public function care_groups():BelongsToMany
+    public function care_groups()
     {
-        return $this->belongsToMany(
+        return $this->hasMany(
             Care_Group::class,
-            'care_group_employees',
-            'employee_id',
-            'group_id',
-            'employee_id',
-            'group_id'
+            'caregiver_id',
+            'employee_id'
         );
     }
 }
