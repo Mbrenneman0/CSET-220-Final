@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int $caregiver_id
@@ -32,7 +35,18 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Care_Activity whereUpdatedAt($value)
  * @mixin \Eloquent
  */
+#[Fillable(
+    'caregiver_id',
+    'patient_id',
+    'date')]
 class Care_Activity extends Model
 {
-    //
+    use HasFactory;
+    public $incrementing = false;
+    public function employees() : HasOne {
+        return $this -> hasOne(Employee::class, 'employee_id');
+    }
+    public function patients() : HasOne {
+        return $this -> hasOne(Patient::class, 'patient_id');
+    }
 }

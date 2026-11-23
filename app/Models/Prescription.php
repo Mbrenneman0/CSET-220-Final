@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Prescriptions whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Prescriptions extends Model
+class Prescription extends Model
 {
     //
 }

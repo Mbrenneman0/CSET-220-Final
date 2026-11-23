@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Roles whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Roles extends Model
+class Role extends Model
 {
     //
 }
