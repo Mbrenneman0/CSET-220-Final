@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Payments whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Payments extends Model
+class Payment extends Model
 {
     //
 }
