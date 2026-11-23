@@ -45,9 +45,9 @@ class Care_Activity extends Model
     use HasFactory;
     public $table = 'care__activities';
     public function caregiver() : BelongsTo {
-        return $this -> belongsTo(Patient::class, 'employee_id', 'employee_id');
+        return $this -> belongsTo(Employee::class, 'employee_id', 'employee_id');
     }
-    
+
     public function patient() : BelongsTo {
         return $this -> belongsTo(Patient::class, 'patient_id', 'patient_id');
     }
@@ -56,6 +56,12 @@ class Care_Activity extends Model
     {
         return [
             'date' => 'datetime'
+            'morning_med' => 'boolean',
+            'afternoon_med' => 'boolean',
+            'night_med' => 'boolean',
+            'morning_meal' => 'boolean',
+            'afternoon_meal' => 'boolean',
+            'night_meal' => 'boolean'
         ];
     }
 }
