@@ -40,6 +40,6 @@ class Care_Group extends Model
             'patient_id',
             'group_id',
             'patient_id'
-        )->withTimestamps();
+        );
     }
 }

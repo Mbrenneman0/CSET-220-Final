@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $employee_id
@@ -29,4 +30,27 @@ class Employee extends Model
     protected $fillable = [
         'salary'
     ];
+
+    public function rosters():BelongsToMany
+    {
+        return $this->belongsToMany(
+            Roster::class,
+            'roster_employees',
+            'employee_id',
+            'roster_id',
+            'employee_id',
+            'roster_id'
+        );
+    }
+    public function care_groups():BelongsToMany
+    {
+        return $this->belongsToMany(
+            Care_Group::class,
+            'care_group_employees',
+            'employee_id',
+            'group_id',
+            'employee_id',
+            'group_id'
+        );
+    }
 }
