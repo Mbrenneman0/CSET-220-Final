@@ -49,6 +49,13 @@ class Roster extends Model
         'caregiver_4'
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+        ];
+    }
+
     public function doctor(): BelongsTo
     {
         return $this->belongsTo(

@@ -31,6 +31,13 @@ class Employee extends Model
         'salary'
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'salary' => 'decimal:2',
+        ];
+    }
+
     public function rosters():BelongsToMany
     {
         return $this->belongsToMany(
