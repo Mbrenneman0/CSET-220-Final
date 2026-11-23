@@ -39,23 +39,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable([
     'caregiver_id',
     'patient_id',
-    'date'])]
+    'date'
+])]
 class Care_Activity extends Model
 {
     use HasFactory;
     public $table = 'care__activities';
-    public function caregiver() : BelongsTo {
-        return $this -> belongsTo(Employee::class, 'employee_id', 'employee_id');
+    public function caregiver(): BelongsTo
+    {
+        return $this->belongsTo(Employee::class, 'employee_id', 'employee_id');
     }
 
-    public function patient() : BelongsTo {
-        return $this -> belongsTo(Patient::class, 'patient_id', 'patient_id');
+    public function patient(): BelongsTo
+    {
+        return $this->belongsTo(Patient::class, 'patient_id', 'patient_id');
     }
 
     protected function casts(): array
     {
         return [
-            'date' => 'datetime'
+            'date' => 'datetime',
             'morning_med' => 'boolean',
             'afternoon_med' => 'boolean',
             'night_med' => 'boolean',
