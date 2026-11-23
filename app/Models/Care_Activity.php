@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @property int $id
  * @property int $caregiver_id
  * @property int $patient_id
  * @property string $date
@@ -35,18 +36,26 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Care_Activity whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-#[Fillable(
+#[Fillable([
     'caregiver_id',
     'patient_id',
-    'date')]
+    'date'])]
 class Care_Activity extends Model
 {
     use HasFactory;
-    public $incrementing = false;
-    public function employees() : HasOne {
-        return $this -> hasOne(Employee::class, 'employee_id');
+    public $table = 'care__activities';
+    public function caregiver() : BelongsTo {
+        return $this -> belongsTo(Patient::class, 'employee_id', 'employee_id');
     }
-    public function patients() : HasOne {
-        return $this -> hasOne(Patient::class, 'patient_id');
+    
+    public function patient() : BelongsTo {
+        return $this -> belongsTo(Patient::class, 'patient_id', 'patient_id');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'datetime'
+        ];
     }
 }
