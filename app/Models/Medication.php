@@ -25,4 +25,5 @@ class Medication extends Model
 {
     use HasFactory;
     public $table = 'medications';
+    protected $primaryKey = 'medication-id';
 }
