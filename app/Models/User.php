@@ -60,9 +60,9 @@ use Illuminate\Support\Carbon;
 //     }
 // }
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'users';
 
