@@ -62,9 +62,9 @@ use Illuminate\Support\Carbon;
 
 class User extends Model
 {
-    protected $table = 'users';
-
     use HasFactory;
+
+    protected $table = 'users';
 
     protected $primaryKey = 'user_id';
 
@@ -75,26 +75,30 @@ class User extends Model
         'email',
         'phone_number',
         'password',
-        'DOB'
+        'DOB',
+    ];
+
+    protected $hidden = [
+        'password',
     ];
 
     protected $casts = [
         'DOB' => 'date',
         'is_approved' => 'boolean',
-        'password' => 'hashed'
+        'password' => 'hashed',
     ];
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsTo(Roles::class, 'role_id', 'role_id');
+        return $this->belongsTo(Role::class, 'role_id', 'role_id');
     }
 
-    public function patients()
+    public function patient()
     {
         return $this->hasOne(Patient::class, 'patient_id', 'user_id');
     }
 
-    public function employees()
+    public function employee()
     {
         return $this->hasOne(Employee::class, 'employee_id', 'user_id');
     }
