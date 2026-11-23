@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,5 +22,24 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Care_Group extends Model
 {
-    //
+    use HasFactory;
+
+    protected $table = 'Care_Group';
+    protected $primaryKey = 'group_id';
+
+    protected $fillable = [
+        'caregiver_id'
+    ];
+
+    public function patients(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Patient::class,
+            'group__assignments',
+            'group_id',
+            'patient_id',
+            'group_id',
+            'patient_id'
+        )->withTimestamps();
+    }
 }

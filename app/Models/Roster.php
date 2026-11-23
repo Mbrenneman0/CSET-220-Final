@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -30,5 +31,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Roster extends Model
 {
-    //
+    use HasFactory;
+
+    protected $table = 'Roster';
+    protected $primaryKey = 'date';
+
+    protected $fillable = [
+        'supervisor_id',
+        'doctor_id',
+        'caregiver_1',
+        'caregiver_2',
+        'caregiver_3',
+        'caregiver_4'
+    ];
 }
