@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,6 +29,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Prescription whereUpdatedAt($value)
  * @mixin \Eloquent
  */
+#[Fillable([
+    'patient_id',
+    'date',
+    'comments',
+    'morning_med',
+    'afternoon_med',
+    'night_med'
+])]
 class Prescription extends Model
 {
     use HasFactory;
@@ -49,5 +58,11 @@ class Prescription extends Model
         return $this -> belongsTo(Medication::class, 'night_med', 'medication_id');
     }
 
+    protected function casts(): array
+    {
+        return [
+            'date' => 'datetime'
+        ];
+    }
 
 }
