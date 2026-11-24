@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Database\Factories\UserFactory;
+use App\Enums\UserRole;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,5 +38,12 @@ class Role extends Model
     public function users()
     {
         return $this->hasMany(User::class, 'role_id', 'role_id');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'role_name' => UserRole::class
+        ];
     }
 }

@@ -46,15 +46,15 @@ class Prescription extends Model
         return $this -> belongsTo(Patient::class, 'patient_id', 'patient_id');
     }
 
-    public function morning_med() : BelongsTo {
+    public function morningMed() : BelongsTo {
         return $this -> belongsTo(Medication::class, 'morning_med', 'medication_id');
     }
 
-    public function afternoon_med() : BelongsTo {
+    public function afternoonMed() : BelongsTo {
         return $this -> belongsTo(Medication::class, 'afternoon_med', 'medication_id');
     }
 
-    public function night_med() : BelongsTo {
+    public function nightMed() : BelongsTo {
         return $this -> belongsTo(Medication::class, 'night_med', 'medication_id');
     }
 
