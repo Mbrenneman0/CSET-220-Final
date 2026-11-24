@@ -35,7 +35,7 @@ class Roster extends Model
 {
     use HasFactory;
 
-    protected $table = 'Roster';
+    protected $table = 'rosters';
     protected $primaryKey = 'date';
 
     public $incrementing = false;
@@ -56,32 +56,56 @@ class Roster extends Model
         ];
     }
 
-    public function doctor(): BelongsTo
+    public function doctor()
     {
-        return $this->belongsTo(
-            Employee::class, 
-            'doctor_id', 
-            'employee_id', 
-        );
-    }
-
-    public function supervisor(): BelongsTo
-    {
-        return $this->belongsTo(
-            Employee::class,
-            'supervisor_id',
+        return $this->hasMany(
+            Roster::class,
+            'doctor_id',
             'employee_id'
         );
     }
 
-    public function caregivers(): BelongsToMany
+    public function supervisor()
     {
-        return $this->belongsToMany(
-            Employee::class, 
-            'roster_caregivers',
-            'roster_id',
-            'caregiver_id',
-            'roster_id',
+        return $this->hasMany(
+            Roster::class,
+            'doctor_id',
+            'employee_id'
+        );
+    }
+
+    public function caregiver1(): BelongsTo
+    {
+        return $this->belongsTo(
+            Employee::class,
+            'caregiver_1',
+            'employee_id'
+        );
+    }
+
+        public function caregiver2(): BelongsTo
+    {
+        return $this->belongsTo(
+            Employee::class,
+            'caregiver_2',
+            'employee_id'
+        );
+    }
+
+        public function caregiver3(): BelongsTo
+    {
+        return $this->belongsTo(
+            Employee::class,
+            'caregiver_3',
+            'employee_id'
+        );
+    }
+
+        public function caregiver4(): BelongsTo
+    {
+        return $this->belongsTo(
+            Employee::class,
+            'caregiver_4',
             'employee_id'
         );
     }
@@ -90,10 +114,10 @@ class Roster extends Model
     {
         return $this->belongsToMany(
             Care_Group::class,
-            'roster_care_groups',
-            'roster_id',
+            'group__assignments',
+            'patient_id',
             'group_id',
-            'date',
+            'patient_id',
             'group_id'
         );
     }

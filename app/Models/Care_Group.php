@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -24,7 +25,7 @@ class Care_Group extends Model
 {
     use HasFactory;
 
-    protected $table = 'Care_Group';
+    protected $table = 'care__groups';
     protected $primaryKey = 'group_id';
 
     protected $fillable = [
@@ -40,6 +41,15 @@ class Care_Group extends Model
             'patient_id',
             'group_id',
             'patient_id'
+        );
+    }
+
+    public function caregiver(): BelongsTo
+    {
+        return $this->belongsTo(
+            Employee::class,
+            'caregiver_id',
+            'employee_id'
         );
     }
 }
