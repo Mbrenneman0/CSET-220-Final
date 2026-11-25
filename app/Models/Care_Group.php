@@ -25,11 +25,18 @@ class Care_Group extends Model
 {
     use HasFactory;
 
+    /*
+    COLUMN NAMES
+        - for ensuring universal naming with autofill
+    */
+    public const GROUP_ID = 'group_id';
+    public const CAREGIVER_ID = 'caregiver_id';
+
     protected $table = 'care__groups';
-    protected $primaryKey = 'group_id';
+    protected $primaryKey = self::GROUP_ID;
 
     protected $fillable = [
-        'caregiver_id'
+        self::CAREGIVER_ID
     ];
 
     public function patients(): BelongsToMany
@@ -39,7 +46,7 @@ class Care_Group extends Model
             'group__assignments',
             'group_id',
             'patient_id',
-            'group_id',
+            self::GROUP_ID,
             'patient_id'
         );
     }
@@ -48,8 +55,8 @@ class Care_Group extends Model
     {
         return $this->belongsTo(
             Employee::class,
-            'caregiver_id',
-            'employee_id'
+            self::CAREGIVER_ID,
+            Employee::EMPLOYEE_ID
         );
     }
 }

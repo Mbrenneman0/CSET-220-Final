@@ -29,39 +29,52 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Prescription whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-#[Fillable([
-    'patient_id',
-    'date',
-    'comments',
-    'morning_med',
-    'afternoon_med',
-    'night_med'
-])]
 class Prescription extends Model
 {
     use HasFactory;
+
+    /*
+    COLUMN NAMES
+        - for ensuring universal naming with autofill
+    */
+    public const PATIENT_ID = 'patient_id';
+    public const DATE = 'date';
+    public const COMMENTS = 'comments';
+    public const MORNING_MED = 'morning_med';
+    public const AFTERNOON_MED = 'afternoon_med';
+    public const NIGHT_MED = 'night_med';
+
     public $table = 'prescriptions';
 
+    protected $fillable = [
+        self::PATIENT_ID,
+        self::DATE,
+        self::COMMENTS,
+        self::MORNING_MED,
+        self::AFTERNOON_MED,
+        self::NIGHT_MED
+    ];
+
     public function patient() : BelongsTo {
-        return $this -> belongsTo(Patient::class, 'patient_id', 'patient_id');
+        return $this -> belongsTo(Patient::class, self::PATIENT_ID, Patient::PATIENT_ID);
     }
 
     public function morningMed() : BelongsTo {
-        return $this -> belongsTo(Medication::class, 'morning_med', 'medication_id');
+        return $this -> belongsTo(Medication::class, self::MORNING_MED, Medication::MEDICATION_ID);
     }
 
     public function afternoonMed() : BelongsTo {
-        return $this -> belongsTo(Medication::class, 'afternoon_med', 'medication_id');
+        return $this -> belongsTo(Medication::class, self::AFTERNOON_MED, Medication::MEDICATION_ID);
     }
 
     public function nightMed() : BelongsTo {
-        return $this -> belongsTo(Medication::class, 'night_med', 'medication_id');
+        return $this -> belongsTo(Medication::class, self::NIGHT_MED, Medication::MEDICATION_ID);
     }
 
     protected function casts(): array
     {
         return [
-            'date' => 'datetime'
+            self::DATE => 'datetime'
         ];
     }
 

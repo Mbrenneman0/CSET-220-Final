@@ -27,23 +27,24 @@ class Role extends Model
 {
     use HasFactory;
 
+    /*
+    COLUMN NAMES
+        - for ensuring universal naming with autofill
+    */
+    public const ROLE_ID = 'role_id';
+    public const ROLE_NAME = 'role_name';
+
     protected $table = 'roles';
 
-    protected $primaryKey = 'role_id';
+    protected $primaryKey = self::ROLE_ID;
 
     protected $fillable = [
-        'role_name',
+        self::ROLE_NAME,
     ];
 
     public function users()
     {
-        return $this->hasMany(User::class, 'role_id', 'role_id');
+        return $this->hasMany(User::class, self::ROLE_ID, User::ROLE_ID);
     }
 
-    protected function casts(): array
-    {
-        return [
-            'role_name' => UserRole::class
-        ];
-    }
 }

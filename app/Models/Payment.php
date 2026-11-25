@@ -30,23 +30,32 @@ class Payment extends Model
 {
     use HasFactory;
 
+    /*
+    COLUMN NAMES
+        - for ensuring universal naming with autofill
+    */
+    public const PAYMENT_ID = 'payment_id';
+    public const PATIENT_ID = 'patient_id';
+    public const PAYMENT_AMOUNT = 'payment_amount';
+    public const DATE = 'date';
+
     protected $table = 'payments';
 
-    protected $primaryKey = 'payment_id';
+    protected $primaryKey = self::PAYMENT_ID;
 
     protected $fillable = [
-        'patient_id',
-        'payment_amount',
-        'date',
+        self::PATIENT_ID,
+        self::PAYMENT_AMOUNT,
+        self::DATE,
     ];
 
     protected $casts = [
-        'payment_amount' => 'decimal:2',
-        'date' => 'date',
+        self::PAYMENT_AMOUNT => 'decimal:2',
+        self::DATE => 'date',
     ];
 
     public function patient()
     {
-        return $this->belongsTo(Patient::class, 'patient_id', 'patient_id');
+        return $this->belongsTo(Patient::class, self::PATIENT_ID, Patient::PATIENT_ID);
     }
 }

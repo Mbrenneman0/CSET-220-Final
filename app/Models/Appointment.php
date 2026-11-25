@@ -25,34 +25,44 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Appointment whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-#[Fillable([
-    'doctor_id',
-    'patient_id',
-    'time_date'
-])]
 class Appointment extends Model
 {
     use HasFactory;
     
+    /*
+    COLUMN NAMES
+        - for ensuring universal naming with autofill
+    */
+    public const DOCTOR_ID = 'doctor_id';
+    public const PATIENT_ID = 'patient_id';
+    public const TIME_DATE = 'time_date';
+    public const COMPLETED = 'completed';
+
     public $table = 'appointments';
 
-    protected $primaryKey = 'time_date';
+    protected $primaryKey = self::TIME_DATE;
     public $incrementing = false;
     protected $keyType = 'string';
 
+    protected $fillable = [
+        self::DOCTOR_ID,
+        self::PATIENT_ID,
+        self::TIME_DATE
+    ];
+
     public function doctor() : BelongsTo {
-        return $this -> belongsTo(Employee::class, 'doctor_id', 'employee_id');
+        return $this -> belongsTo(Employee::class, self::DOCTOR_ID, Employee::EMPLOYEE_ID);
     }
 
     public function patient() : BelongsTo {
-        return $this -> belongsTo(Patient::class, 'patient_id', 'patient_id');
+        return $this -> belongsTo(Patient::class, self::PATIENT_ID, Patient::PATIENT_ID);
     }
 
     protected function casts(): array
     {
         return [
-            'time_date' => 'datetime',
-            'completed' => 'boolean',
+            self::TIME_DATE => 'datetime',
+            self::COMPLETED => 'boolean',
         ];
     }
 
