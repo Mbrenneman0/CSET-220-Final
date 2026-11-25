@@ -25,6 +25,8 @@ defineOptions({
 <template>
     <Head title="Register" />
 
+    <h1>Register</h1>
+
     <Form
         v-bind="store.form()"
         :reset-on-success="['password', 'password_confirmation']"
