@@ -19,6 +19,8 @@ defineOptions({
 <template>
     <Head title="Confirm password" />
 
+    <h1>Confirm password</h1>
+
     <Form
         v-bind="store.form()"
         reset-on-success
