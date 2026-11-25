@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $employee_id
@@ -24,39 +25,88 @@ class Employee extends Model
 {
     use HasFactory;
 
+    /*
+    COLUMN NAMES
+        - for ensuring universal naming with autofill
+    */
+    public const EMPLOYEE_ID = 'employee_id';
+    public const SALARY = 'salary';
+
     protected $table = 'employees';
-    protected $primaryKey = 'employee_id';
+    protected $primaryKey = self::EMPLOYEE_ID;
 
     public $incrementing = false;
 
     protected $fillable = [
-        'salary'
+        self::SALARY
     ];
 
     protected function casts(): array
     {
         return [
-            'salary' => 'decimal:2',
+            self::SALARY => 'decimal:2',
         ];
     }
 
-    public function rosters():BelongsToMany
+    public function doctorRosters(): HasMany
     {
-        return $this->belongsToMany(
+        return $this->hasMany(
             Roster::class,
-            'roster_employees',
-            'employee_id',
-            'roster_id',
-            'employee_id',
-            'roster_id'
+            Roster::DOCTOR_ID,
+            self::EMPLOYEE_ID
+        );
+    }
+
+    public function supervisorRosters(): HasMany
+    {
+        return $this->hasMany(
+            Roster::class,
+            Roster::SUPERVISOR_ID,
+            self::EMPLOYEE_ID
+        );
+    }
+
+    public function caregiver1Rosters(): HasMany
+    {
+        return $this->hasMany(
+            Roster::class,
+            Roster::CAREGIVER_1,
+            self::EMPLOYEE_ID
+        );
+    }
+
+    public function caregiver2Rosters(): HasMany
+    {
+        return $this->hasMany(
+            Roster::class,
+            Roster::CAREGIVER_2,
+            self::EMPLOYEE_ID
+        );
+    }
+
+    public function caregiver3Rosters(): HasMany
+    {
+        return $this->hasMany(
+            Roster::class,
+            Roster::CAREGIVER_3,
+            self::EMPLOYEE_ID
+        );
+    }
+
+    public function caregiver4Rosters(): HasMany
+    {
+        return $this->hasMany(
+            Roster::class,
+            Roster::CAREGIVER_4,
+            self::EMPLOYEE_ID
         );
     }
     public function care_groups()
     {
         return $this->hasMany(
             Care_Group::class,
-            'caregiver_id',
-            'employee_id'
+            Care_Group::CAREGIVER_ID,
+            self::EMPLOYEE_ID
         );
     }
 }

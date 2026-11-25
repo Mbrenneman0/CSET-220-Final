@@ -34,45 +34,55 @@ class Patient extends Model
 {
     use HasFactory;
 
+    /*
+    COLUMN NAMES
+        - for ensuring universal naming with autofill
+    */
+    public const PATIENT_ID = 'patient_id';
+    public const EMERGENCY_CONTACT = 'emergency_contact';
+    public const EMERGENCY_PHONE = 'emergency_phone';
+    public const EMERGENCY_RELATION = 'emergency_relation';
+    public const ADMISSION_DATE = 'admission_date';
+
     protected $table = 'patients';
 
-    protected $primaryKey = 'patient_id';
+    protected $primaryKey = self::PATIENT_ID;
     public $incrementing = false;
     protected $keyType = 'int';
 
     protected $fillable = [
-        'emergency_contact',
-        'emergency_phone',
-        'emergency_relation',
-        'admission_date',
+        self::EMERGENCY_CONTACT,
+        self::EMERGENCY_PHONE,
+        self::EMERGENCY_RELATION,
+        self::ADMISSION_DATE,
     ];
 
     protected $casts = [
-        'admission_date' => 'date',
+        self::ADMISSION_DATE => 'date',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'patient_id', 'user_id');
+        return $this->belongsTo(User::class, self::PATIENT_ID, User::USER_ID);
     }
 
     public function payments()
     {
-        return $this->hasMany(Payment::class, 'patient_id', 'patient_id');
+        return $this->hasMany(Payment::class, Payment::PATIENT_ID, self::PATIENT_ID);
     }
 
     public function appointments()
     {
-        return $this->hasMany(Appointment::class, 'patient_id', 'patient_id');
+        return $this->hasMany(Appointment::class, Appointment::PATIENT_ID, self::PATIENT_ID);
     }
 
     public function prescriptions()
     {
-        return $this->hasMany(Prescription::class, 'patient_id', 'patient_id');
+        return $this->hasMany(Prescription::class, 'patient_id', self::PATIENT_ID);
     }
 
     public function care_activities()
     {
-        return $this->hasMany(Care_Activity::class, 'patient_id', 'patient_id');
+        return $this->hasMany(Care_Activity::class, Care_Activity::PATIENT_ID, self::PATIENT_ID);
     }
 }

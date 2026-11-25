@@ -35,42 +35,54 @@ class Roster extends Model
 {
     use HasFactory;
 
+    /*
+    COLUMN NAMES
+        - for ensuring universal naming with autofill
+    */
+    public const DATE = 'date';
+    public const SUPERVISOR_ID = 'supervisor_id';
+    public const DOCTOR_ID = 'doctor_id';
+    public const CAREGIVER_1 = 'caregiver_;1';
+    public const CAREGIVER_2 = 'caregiver_2';
+    public const CAREGIVER_3 = 'caregiver_3';
+    public const CAREGIVER_4 = 'caregiver_4';
+
     protected $table = 'rosters';
     protected $primaryKey = 'date';
 
     public $incrementing = false;
 
     protected $fillable = [
-        'supervisor_id',
-        'doctor_id',
-        'caregiver_1',
-        'caregiver_2',
-        'caregiver_3',
-        'caregiver_4'
+        self::SUPERVISOR_ID,
+        self::DOCTOR_ID,
+        self::CAREGIVER_1 ,
+        self::CAREGIVER_2,
+        self::CAREGIVER_3,
+        self::CAREGIVER_4
     ];
 
     protected function casts(): array
     {
         return [
-            'date' => 'date',
+            self::DATE => 'date',
         ];
     }
 
     public function doctor()
     {
-        return $this->hasMany(
-            Roster::class,
-            'doctor_id',
-            'employee_id'
+        return $this->belongsTo(
+            Employee::class,
+            self::DOCTOR_ID,
+            Employee::EMPLOYEE_ID
         );
     }
 
     public function supervisor()
     {
-        return $this->hasMany(
-            Roster::class,
-            'doctor_id',
-            'employee_id'
+        return $this->belongsTo(
+            Employee::class,
+            self::DOCTOR_ID,
+            Employee::EMPLOYEE_ID
         );
     }
 
@@ -78,8 +90,8 @@ class Roster extends Model
     {
         return $this->belongsTo(
             Employee::class,
-            'caregiver_1',
-            'employee_id'
+            self::CAREGIVER_1,
+            Employee::EMPLOYEE_ID
         );
     }
 
@@ -87,8 +99,8 @@ class Roster extends Model
     {
         return $this->belongsTo(
             Employee::class,
-            'caregiver_2',
-            'employee_id'
+            self::CAREGIVER_2,
+            Employee::EMPLOYEE_ID
         );
     }
 
@@ -96,8 +108,8 @@ class Roster extends Model
     {
         return $this->belongsTo(
             Employee::class,
-            'caregiver_3',
-            'employee_id'
+            self::CAREGIVER_3,
+            Employee::EMPLOYEE_ID
         );
     }
 
@@ -105,20 +117,8 @@ class Roster extends Model
     {
         return $this->belongsTo(
             Employee::class,
-            'caregiver_4',
-            'employee_id'
-        );
-    }
-
-    public function care_groups(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            Care_Group::class,
-            'group__assignments',
-            'patient_id',
-            'group_id',
-            'patient_id',
-            'group_id'
+            self::CAREGIVER_4,
+            Employee::EMPLOYEE_ID
         );
     }
 }

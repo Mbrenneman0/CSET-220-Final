@@ -20,10 +20,21 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Medication whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-#[Fillable(['medication_name'])]
 class Medication extends Model
 {
     use HasFactory;
+
+    /*
+    COLUMN NAMES
+        - for ensuring universal naming with autofill
+    */
+    public const MEDICATION_ID = 'medication_id';
+    public const MEDICATION_NAME = 'medication_name';
+
     public $table = 'medications';
-    protected $primaryKey = 'medication-id';
+    protected $primaryKey = self::MEDICATION_ID;
+
+    protected $fillable = [
+        self::MEDICATION_NAME
+    ];
 }

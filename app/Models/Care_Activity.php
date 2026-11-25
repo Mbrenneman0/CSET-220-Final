@@ -36,35 +36,52 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Care_Activity whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-#[Fillable([
-    'caregiver_id',
-    'patient_id',
-    'date'
-])]
 class Care_Activity extends Model
 {
     use HasFactory;
+
+    /*
+    COLUMN NAMES
+        - for ensuring universal naming with autofill
+    */
+    public const CAREGIVER_ID = 'caregiver_id';
+    public const PATIENT_ID = 'patient_id';
+    public const DATE = 'date';
+    public const MORNING_MED = 'morning_med';
+    public const AFTERNOON_MED = 'afternoon_med';
+    public const NIGHT_MED = 'night_med';
+    public const MORNING_MEAL = 'morning_meal';
+    public const AFTERNOON_MEAL = 'afternoon_meal';
+    public const NIGHT_MEAL = 'night_meal';
+
     public $table = 'care__activities';
+
+    protected $fillable = [
+        self::CAREGIVER_ID,
+        self::PATIENT_ID,
+        self::DATE
+    ];
+
     public function caregiver(): BelongsTo
     {
-        return $this->belongsTo(Employee::class, 'employee_id', 'employee_id');
+        return $this->belongsTo(Employee::class, self::CAREGIVER_ID, Employee::EMPLOYEE_ID);
     }
 
     public function patient(): BelongsTo
     {
-        return $this->belongsTo(Patient::class, 'patient_id', 'patient_id');
+        return $this->belongsTo(Patient::class, self::PATIENT_ID, Patient::PATIENT_ID);
     }
 
     protected function casts(): array
     {
         return [
-            'date' => 'datetime',
-            'morning_med' => 'boolean',
-            'afternoon_med' => 'boolean',
-            'night_med' => 'boolean',
-            'morning_meal' => 'boolean',
-            'afternoon_meal' => 'boolean',
-            'night_meal' => 'boolean'
+            self::DATE => 'datetime',
+            self::MORNING_MED => 'boolean',
+            self::AFTERNOON_MED => 'boolean',
+            self::NIGHT_MED => 'boolean',
+            self::MORNING_MEAL => 'boolean',
+            self::AFTERNOON_MEAL => 'boolean',
+            self::NIGHT_MEAL => 'boolean'
         ];
     }
 }

@@ -64,42 +64,56 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    /*
+    COLUMN NAMES
+        - for ensuring universal naming with autofill
+    */
+    public const USER_ID = 'user_id';
+    public const FIRST_NAME = 'first_name';
+    public const LAST_NAME = 'last_name';
+    public const EMAIL = 'email';
+    public const PASSWORD = 'password';
+    public const ROLE_ID = 'role_id';
+    public const PHONE_NUMBER = 'phone_number';
+    public const IS_APPROVED = 'is_approved';
+    public const DOB = 'dob';
+
     protected $table = 'users';
 
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = self::USER_ID;
 
     protected $fillable = [
-        'role_id',
-        'first_name',
-        'last_name',
-        'email',
-        'phone_number',
-        'password',
-        'DOB',
+        self::ROLE_ID,
+        self::FIRST_NAME,
+        self::LAST_NAME,
+        self::EMAIL,
+        self::PHONE_NUMBER,
+        self::PASSWORD,
+        self::DOB,
     ];
 
     protected $hidden = [
-        'password',
+        self::PASSWORD,
     ];
 
     protected $casts = [
-        'DOB' => 'date',
-        'is_approved' => 'boolean',
-        'password' => 'hashed',
+        self::DOB => 'date',
+        self::IS_APPROVED => 'boolean',
+        self::PASSWORD => 'hashed',
     ];
 
     public function role()
     {
-        return $this->belongsTo(Role::class, 'role_id', 'role_id');
+        return $this->belongsTo(Role::class, Role::ROLE_ID, self::ROLE_ID);
     }
 
     public function patient()
     {
-        return $this->hasOne(Patient::class, 'patient_id', 'user_id');
+        return $this->hasOne(Patient::class, Patient::PATIENT_ID, self::USER_ID);
     }
 
     public function employee()
     {
-        return $this->hasOne(Employee::class, 'employee_id', 'user_id');
+        return $this->hasOne(Employee::class, Employee::EMPLOYEE_ID, self::USER_ID);
     }
 }
